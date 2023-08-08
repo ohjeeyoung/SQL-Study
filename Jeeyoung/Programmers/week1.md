@@ -4,6 +4,7 @@
 - [조건에 맞는 도서 리스트 출력하기](#조건에-맞는-도서-리스트-출력하기)
 - [과일로 만든 아이스크림 고르기](#과일로-만든-아이스크림-고르기)
 - [평균 일일 대여 요금 구하기](#평균-일일-대여-요금-구하기)
+- [조건에 부합하는 중고거래 댓글 조회하기](#조건에-부합하는-중고거래-댓글-조회하기)
 - [인기있는 아이스크림](#인기있는-아이스크림)
 - [흉부외과 또는 일반외과 의사 목록 출력하기](#흉부외과-또는-일반외과-의사-목록-출력하기)
 - [3월에 태어난 여성 회원 목록 출력하기](#3월에-태어난-여성-회원-목록-출력하기)
@@ -79,6 +80,21 @@ WHERE CAR_TYPE = 'SUV'
 ```
 ----------------------------------------------------
 
+### 조건에 부합하는 중고거래 댓글 조회하기
+
+#### 문제
+https://school.programmers.co.kr/learn/courses/30/lessons/164673
+
+#### 코드
+
+``` sql
+SELECT b.TITLE, b.BOARD_ID, r.REPLY_ID, r.WRITER_ID, r.CONTENTS, DATE_FORMAT(r.CREATED_DATE,'%Y-%m-%d') AS CREATED_DATE
+FROM USED_GOODS_BOARD AS b 
+JOIN USED_GOODS_REPLY AS r ON b.BOARD_ID = r.BOARD_ID
+WHERE b.CREATED_DATE LIKE "2022-10%"
+ORDER BY CREATED_DATE, b.TITLE
+```
+----------------------------------------------------
 
 ### 인기있는 아이스크림
 
