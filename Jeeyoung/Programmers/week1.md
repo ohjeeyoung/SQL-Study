@@ -10,6 +10,7 @@
 - [3월에 태어난 여성 회원 목록 출력하기](#3월에-태어난-여성-회원-목록-출력하기)
 - [12세 이하인 여자 환자 목록 출력하기](#12세-이하인-여자-환자-목록-출력하기)
 - [모든 레코드 조회하기](#모든-레코드-조회하기)
+- [재구매가 일어난 상품과 회원 리스트 구하기](#재구매가-일어난-상품과-회원-리스트-구하기)
 - [역순 정렬하기](#역순-정렬하기)
 - [아픈 동물 찾기](#아픈-동물-찾기)
 - [어린 동물 찾기](#어린-동물-찾기)
@@ -169,6 +170,22 @@ https://school.programmers.co.kr/learn/courses/30/lessons/59034
 ``` sql
 SELECT * FROM ANIMAL_INS
 ORDER BY ANIMAL_ID
+```
+
+----------------------------------------------------
+
+### 재구매가 일어난 상품과 회원 리스트 구하기
+
+#### 문제
+https://school.programmers.co.kr/learn/courses/30/lessons/131536
+
+#### 코드
+
+``` sql
+SELECT USER_ID, PRODUCT_ID FROM ONLINE_SALE
+GROUP BY 1, 2
+HAVING COUNT(PRODUCT_ID) >= 2
+ORDER BY 1, 2 DESC
 ```
 
 ----------------------------------------------------
