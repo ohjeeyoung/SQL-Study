@@ -48,8 +48,37 @@ MAIN QUERY
     ```
 - 단 Main Query가 없으면 실행시 에러
   
- 
-# Select
-- Selec
 
-## 상위 n개 레코드
+# IS NULL
+## ISNULL 함수
+- Microsoft SQL SQL Server (MSSQL) 의 내장 함수
+- 사용법
+  - ISNULL(column, null일 경우 대체할 값)
+  - ISNULL(컬럼명, 대체할 값) = 비교 대상
+    - 해당 컬럼의 NULL 값을 특정 값으로 대체해서 결과값을 만든 후, 그 결과로 나온 행들을 우항의 비교 대상과 비교해서 같은 것들만 출력
+
+## IFNULL
+- MySQL에서는 ISNULL이 없고 IFNULL 함수가 존재
+
+## IS NULL
+- Where 절에서 Null인 값 필터링 하고싶을 때 IS NULL 사용
+- ex) WHERE name IS NULL
+- 반대의 경우 IS NOT NULL
+
+# GROUP BY
+## 가격대 별 상품 개수 구하기 (Level 2)
+- 가격대 정보를 각 구간의 최소 금액으로 설정
+  - CASE 문 사용해서 각 구간별 가격대 값 정하기
+  - 10000원보다 작은 경우는 0, 그 외의 경우는 천원 단위 버림해주기 -> TRUNCATE(숫자, 버릴 자릿수)
+- 가격대 별 상품 개수
+  - GROUP BY, COUNT
+```sql
+SELECT (CASE
+            WHEN PRICE < 10000 THEN 0
+            ELSE TRUNCATE(PRICE, -4)
+        END) AS PRICE_GROUP,
+        COUNT(PRODUCT_ID) AS PRODUCTS
+FROM PRODUCT
+GROUP BY PRICE_GROUP
+ORDER BY PRICE_GROUP
+```
