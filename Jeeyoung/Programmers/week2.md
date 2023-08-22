@@ -19,7 +19,23 @@ SELECT ANIMAL_TYPE, IFNULL(NAME, 'No name') AS NAME, SEX_UPON_INTAKE
 FROM ANIMAL_INS
 ```
 
-IFNULL
+##### IFNULL
+> 칼럼 값이 NULL 일 때 다른 값으로 대체/치환해주는 함수
+
++ 다른 방법
+1) IF문 사용
+``` sql
+SELECT ANIMAL_TYPE, IF(NAME IS NULL, 'No name', NAME) AS NAME, SEX_UPON_INTAKE 
+FROM ANIMAL_INS
+```
+2) CASE WHEN
+``` sql
+SELECT ANIMAL_TYPE, CASE WHEN NAME IS NULL THEN 'No name'
+                    ELSE NAME
+                    END AS NAME,
+SEX_UPON_INTAKE 
+FROM ANIMAL_INS
+```
 
 ----------------------------------------------------
 ## JOIN
@@ -38,7 +54,15 @@ GROUP BY B.USER_ID
 HAVING SUM(PRICE) >= 700000
 ORDER BY 3 ASC
 ```
-WHERE과 HAVING의 차이
+##### WHERE 절과 HAVING 절의 차이
+- HAVING 절은 그룹 전체 즉, 그룹을 나타내는 결과 집합의 행에만 적용된다
+- WHERE 절은 개별 행에 적용된다
+<br/>
+
+- 집계함수는 HAVING 절과 함께 사용할 수 있다
+- WHERE 절을 HAVING 절에 포함된 하위 쿼리에 있지 않으면 집계함수와 함께 사용할 수 없다
+
+(집계함수란, COUNT, MIN, MAX, SUM, AVG 등)
 
 
 ----------------------------------------------------
@@ -61,7 +85,14 @@ GROUP BY 1
 ORDER BY 1 DESC
 ```
 
-CASE 
+##### CASE 
+1) 새로운 열을 생성하는 경우
+``` sql
+SELECT CAR_ID, CASE WHEN '2022-10-16' BETWEEN start_date AND end_date THEN '대여중'
+                ELSE '대여 가능' END AS AVAILABILITY
+```
+2) 열을 집계하는 경우 (집계함수와 함께 사용): 집계 열에 집계함수를 적용
+``` sql
+SELECT 집계함수((DISTINCT) CASE WHEN 기존 열 = 조건 THEN 집계 열 (ELSE 값) END) AS 새로운 열
+```
 
-
-----------------------------------------------------
